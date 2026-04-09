@@ -1,0 +1,27 @@
+name: Publish to pub.dev
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  publish:
+    name: Publish to pub.dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Install dependencies
+        run: dart pub get
+      - name: Update version
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: sed -i "s/^version: .*/version: $VERSION/" pubspec.yaml
+      - name: Publish
+        run: dart pub publish --force
+        env:
+          PUB_TOKEN: ${{ secrets.PUB_TOKEN }}

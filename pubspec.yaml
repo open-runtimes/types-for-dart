@@ -1,0 +1,7 @@
+name: open_runtimes
+description: Types for Dart Open Runtime
+version: 0.0.1
+homepage: https://github.com/open-runtimes/types-for-dart
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
